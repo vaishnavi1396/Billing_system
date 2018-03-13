@@ -24,7 +24,7 @@ def med_query(medicine):
     cursor.execute("SELECT med_id from med_det where trade_name=\'"+medicine+"\'")
     data = cursor.fetchone()
     return data
-g
+
 def exp():
     mysql = med()
     cursor = mysql.connect().cursor()
