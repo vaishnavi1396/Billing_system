@@ -1,0 +1,39 @@
+.wrapper {
+    border:1px solid #000;
+    display:inline-block;
+}
+search_id,
+button {
+    background-color:transparent;
+    border:0;
+}
+#layer1
+        {
+        border:solid thick blue;
+        left:250px;
+        background-color:#ADE3FA;
+        }
+        strong
+        {
+        color:#1E4759;
+        font-size:20px;
+        }
+        h1
+        {
+        color:#3E0DC6;
+        text-align:center;
+        }
+#layer3
+        {
+        border:solid thick black;
+        color:#112354;
+        padding:lem;
+        left:50px;
+        top:50px;
+        position:absolute;
+
+        }
+        *
+        {
+        box-sizing:border-box;
+        }
