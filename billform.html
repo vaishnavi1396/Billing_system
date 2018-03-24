@@ -1,0 +1,54 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:5000/static/display.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:5000/static/ajax.js"></script>
+</head>
+<body>
+<div align="center">
+<div class="card" style="width:50rem;height:35rem;bgcolor:#ffffff;">
+    <div class="card-body">
+        <h4 class="card-title">{shop_name}</h4>
+        <h6 class="card-subtitle mb-2 text-muted">supported by vaishnavi</h6>
+        <div class="search">
+            <input type="text" class="form-control input-sm length" maxlength="40" placeholder="Search..." />
+            <div style="margin-top:10px">
+                <button   class="btn btn-primary btn-sm search">Search</button>
+                <button  id="add" class="btn btn-primary btn-sm add">Add</button>
+            </div>
+        </div>
+
+        <div>
+        <label>Count:<h6 id="count">0</h6></label>
+        <table id="layer1" border="0" cellspacing="1" cellpadding="15">
+            <tr>
+                <th>SL NO.</th>
+                <th>MEDICINE NAME</th>
+                <th>MFG DATE</th>
+                <th>EXP DATE</th>
+                <th>QTY</th>
+                <th>TAX</th>
+                <th>AMOUNT</th>
+            </tr>
+            <tbody id="rows">
+            <tr>
+                <th>1</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+            <tr>
+                <td colspan="7">TOTAL</td>
+            </tr>
+        </table>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>
