@@ -3,15 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7c7964f3-332b-4c14-b496-73613c7953b8" name="Default" comment="">
       <change beforePath="" afterPath="$PROJECT_DIR$/../bill/.idea/vcs.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/medbill.iml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/medbill.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/ajax.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/display.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/templates/billform.html" />
       <change beforePath="$PROJECT_DIR$/../bill/.idea/bill.iml" afterPath="$PROJECT_DIR$/../bill/.idea/bill.iml" />
       <change beforePath="$PROJECT_DIR$/../bill/.idea/misc.xml" afterPath="$PROJECT_DIR$/../bill/.idea/misc.xml" />
       <change beforePath="$PROJECT_DIR$/../bill/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../bill/.idea/workspace.xml" />
@@ -19,6 +10,7 @@
       <change beforePath="$PROJECT_DIR$/../bill/static/ajax.js" afterPath="$PROJECT_DIR$/../bill/static/ajax.js" />
       <change beforePath="$PROJECT_DIR$/../bill/static/display.css" afterPath="$PROJECT_DIR$/../bill/static/display.css" />
       <change beforePath="$PROJECT_DIR$/../bill/templates/billformat.html" afterPath="$PROJECT_DIR$/../bill/templates/billformat.html" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,10 +21,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="medbill.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="medbill.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/medbill.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
+            <state relative-caret-position="1288">
               <caret line="105" column="33" lean-forward="true" selection-start-line="105" selection-start-column="33" selection-end-line="105" selection-end-column="33" />
               <folding>
                 <element signature="e#0#56#0" expanded="true" />
@@ -55,10 +47,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ajax.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ajax.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/ajax.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
+            <state relative-caret-position="458">
               <caret line="28" column="11" lean-forward="true" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
               <folding />
             </state>
@@ -567,21 +559,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/ajax.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="458">
+          <caret line="28" column="11" lean-forward="true" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/medbill.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
+        <state relative-caret-position="1288">
           <caret line="105" column="33" lean-forward="true" selection-start-line="105" selection-start-column="33" selection-end-line="105" selection-end-column="33" />
           <folding>
             <element signature="e#0#56#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/ajax.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="28" column="11" lean-forward="true" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
