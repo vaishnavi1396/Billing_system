@@ -97,7 +97,6 @@ def add_medicine():
     medicine_name= request.args.get('medicine')
     cust_id=request.cookies.get("cust_id")
     data=get_med_det(medicine_name,cust_id)
-
     return str(data)
 
 
