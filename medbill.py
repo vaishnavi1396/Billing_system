@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from flask import render_template, request,make_response
 from flask import Flask
 from flaskext.mysql import MySQL
@@ -105,19 +104,3 @@ def add_medicine():
 if __name__ == "__main__":
     app.run(debug=False)
     # get_med_det("crocin","100")
-=======
-from flask import render_template,request
-from flask import Flask
-from flaskext.mysql import MySQL
-
-app = Flask(__name__)
-
-@app.route("/")
-def bill():
-    #print("hello")
-    return render_template("billform.html")
-
-if __name__=="__main__":
-    app.run()
-    #bill()
->>>>>>> 9392b3cfacfbb7513214a48b79a9f8bb9ee3a16d
