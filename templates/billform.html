@@ -9,12 +9,12 @@
 <div align="center">
 <div class="card" style="width:55rem;height:35rem;">
     <div class="card-body" style="background-color:EEE8E8">
-        <h4 class="card-title">{{shop_name}}</h4>
+        <h4 class="card-title">{{ shop_name }}</h4>
         <h6 class="card-subtitle mb-2 text-muted">supported by BRV4!!</h6>
         <div class="search1" align="center">
             <input type="text" id="txtSearch" class="form-control input-sm length" maxlength="40" placeholder="Search..." />
             <div style="margin-top:10px">
-                <button  class="btn btn-primary btn-sm search" id="txtSubmit">Search</button>
+                <button  class="btn btn-primary btn-sm search" id="search">Search</button>
                 <button  id="add" class="btn btn-primary btn-sm add">Add</button>
             </div>
         </div>
@@ -29,17 +29,19 @@
                 <th>EXP DATE</th>
                 <th>COST</th>
                 <th>QTY</th>
-                <th>TAX</th>
                 <th>AMOUNT</th>
             </tr>
             <tbody id="rows">
 
             </tbody>
             <tr>
-                <td colspan="8">TOTAL</td>
+                <td colspan="7">TOTAL</td>
             </tr>
         </table>
     </div>
+         <div style="margin-top:30px">
+                <button  class="btn btn-primary btn-sm bill" id="bill">Bill</button>
+         </div>
   </div>
 </div>
 </div>
