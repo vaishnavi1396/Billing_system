@@ -1,27 +1,40 @@
 .length
 {
-width:80%;
+width:60%;
 }
+
 .search1
 {
 margin-top:25px;
 }
+
+#user_details
+{
+margin-top: 20px;
+}
+position: relative;
+}
+
 .search
 {
 width:10%;
 }
+
 .add
 {
 width:10%;
 }
+
 #count1
 {
 margin-top:10;
 }
+
 #layer1
 {
 border:solid black;
 }
+
 .bill
 {
 width:10%;
