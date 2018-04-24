@@ -68,7 +68,6 @@ def generate():
     print(bill_data)
     for obj in bill_data:
         print(obj["batch_id"])
-
     return jsonify(json.dumps({"status":"Success"}))
 
 if __name__ == "__main__":
