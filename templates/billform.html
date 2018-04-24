@@ -16,11 +16,12 @@
             <div class="tab-pane active in" id="user_details">
                 <form name="udetails" onsubmit="return validateForm()">
                     <label>Username</label>
-                    <input id="uname" type="text" name="uname" class="input-xlarge" required>
+                    <input id="uname" type="text" name="username" class="input-xlarge" required/>
                     <label>Phone number </label>
-                    <input id="phoneNo" type="tel" name="phoneNo" class="input-xlarge" required>
+                    <input id="phoneNo" type="tel" pattern="[789][0-9]{9}" name="phoneNo" class="input-xlarge" required/>
+                    <!--<input id="phoneNo" type="tel" name="phoneNo" class="input-xlarge" required>-->
                     <label>Email</label>
-                    <input id="email" type="email" name="email" class="input-xlarge" required>
+                    <input id="email" type="email" name="email" class="input-xlarge" required/>
                 </form>
             </div>
         </div>
@@ -42,18 +43,18 @@
                 <th>EXP DATE</th>
                 <th>COST</th>
                 <th>QTY</th>
-                <th>AMOUNT</th>
+                <th id="cal_amount">AMOUNT</th>
             </tr>
             <tbody id="rows">
 
             </tbody>
             <tr>
-                <td colspan="7">TOTAL</td>
+                <td id="total" colspan="7">TOTAL</td>
             </tr>
         </table>
     </div>
          <div style="margin-top:30px">
-                <button  class="btn btn-primary btn-sm bill" id="bill">Bill</button>
+                <button  type="submit" class="btn btn-primary btn-sm bill" id="bill">Bill</button>
          </div>
   </div>
 </div>

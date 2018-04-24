@@ -20,7 +20,7 @@ $(document).ready(function(){
                     alert("Data: " + data + "\nStatus: " + status);
                     if(status.trim() == "success".trim())
                     {
-                    var markup = '<tr><td>'+(count).toString()+'</td><td>'+med_name+'</td><td>'+data.mfg_Date+' </td><td>'+data.exp_Date+' </td><td>'+data.cost+' </td><td><input type="number" min="0" max="100" value="0" size="2" style="width:50px" name="qty" id="qty'+count+'"/> </td><td id=amount'+count+'> </td></tr>';
+                    var markup = '<tr><td>'+(count).toString()+'</td><td>'+med_name+'</td><td>'+data.mfg_Date+' </td><td>'+data.exp_Date+' </td><td>'+data.cost+' </td><td><input type="number" min="0" max="100" value="0" size="2" style="width:50px" name="qty" id="qty'+count+'"/> </td><td class="txtCal" id=amount'+count+'> </td></tr>';
                     $("#count").text(count.toString())
                     $("#rows").append(markup);
 
@@ -30,33 +30,53 @@ $(document).ready(function(){
                     amount= data.cost*value;
 //                    alert(amount);
                     $("#amount"+count).text(amount);
+                    var username = $("#uname").val();
+                    var phoneNo = $("#phoneNo").val();
+                    var email = $("#email").val();
                     var entry=new Object();
+                    entry.user_name=username
+                    entry.user_phone=phoneNo
+                    entry.user_email=email
                     entry.qty=value
                     entry.batch_id=data.batch_id
                     bill_info.push(entry);
-
-
                     });
                     }
                 });
             }
+        $("#cal_amount").on('amount', '.txtCal', function () {
+       var calculated_total_sum = 0;
+
+       $("#amount").each(function () {
+           var get_textbox_value = $(this).val();
+           if ($.isNumeric(get_textbox_value)) {
+              calculated_total_sum += parseFloat(get_textbox_value);
+              }
+            });
+              $("#total").html(calculated_total_sum);
+       });
 
     });
     $("#bill").click(function(){
-        if($("#uname").val() == ""){
+        var username = $("#uname").val();
+        if(username == ""){
         alert("Enter the Username");
         }
-        if($("#phoneNo").val() == ""){
+
+        var phoneNo = $("#phoneNo").val();
+        if(phoneNo == ""){
         alert("Enter the Phone Number");
         }
-        if($("#email").val() == ""){
+
+        var email = $("#email").val();
+        if(email == ""){
         alert("Enter the User's email");
         }
-        else{
-            if(bill_info.length==" ")
-                {
-                alert("BILL INFO IS EMPTY");
-                }
+
+        if(bill_info.length==" ")
+            {
+            alert("BILL INFO IS EMPTY");
+            }
 
             else{
                 var jsonArray = JSON.stringify(bill_info);
@@ -77,7 +97,7 @@ $(document).ready(function(){
                             }
                         });
                     }
-            }
+
         });
 
         $("#search").click(function(){

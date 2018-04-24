@@ -10,6 +10,7 @@ class add_model:
         self.qty=qty
         self.batch_id=batch_id
 
+
 def med():
     mysql = MySQL()
     app.config['MYSQL_DATABASE_USER'] = 'root'
