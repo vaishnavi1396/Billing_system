@@ -3,12 +3,20 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="http://127.0.0.1:5000/static/display.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
     <script type="text/javascript" src="http://127.0.0.1:5000/static/ajax.js"></script>
 </head>
 
-<body align="center">
-<div class="card" style="width:55rem;height:35rem;">
-    <div class="card-body" style="background-color:EEE8E8;">
+<body>
+<div align="center">
+<div class="card text-white mb-3" style="width:55rem;height:35rem;">
+    <div class="card-body">
         <h4 class="card-title">{{ shop_name }}</h4>
         <h6 class="card-subtitle mb-2 text-muted">supported by BRV4!!</h6>
         <div id="myTabContent" class="tab-content">
@@ -31,7 +39,8 @@
 
         <div>
         <label align="right" id="count1">Count:<small id="count">0</small></label>
-        <table id="layer1" border="1" cellspacing="1" cellpadding="15">
+        <table id="bill_table" class="tables" border="0" cellspacing="1" cellpadding="15">
+            <thead>
             <tr>
                 <th>SL NO.</th>
                 <th>MEDICINE NAME</th>
@@ -41,6 +50,7 @@
                 <th>QTY</th>
                 <th id="cal_amount">AMOUNT</th>
             </tr>
+           </thead>
             <tbody id="rows">
 
             </tbody>

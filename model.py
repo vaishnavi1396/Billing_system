@@ -17,7 +17,7 @@ class add_model:
 def med():
     mysql = MySQL()
     app.config['MYSQL_DATABASE_USER'] = 'root'
-    app.config['MYSQL_DATABASE_PASSWORD'] = 'vaishnavi'
+    app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
     app.config['MYSQL_DATABASE_DB'] = 'medicine'
     app.config['MYSQL_DATABASE_HOST'] = 'localhost'
     mysql.init_app(app)
@@ -40,7 +40,7 @@ def med_query(medicine):
     cursor = mysql.connect().cursor()
     cursor.execute("SELECT med_id from med_det where trade_name=\'"+medicine+"\'")
     data = cursor.fetchone()
-    return data
+    return data[0]
 
 
 def add(sql):
@@ -86,3 +86,7 @@ def exp(expdate):
     exp_value = cursor.fetchone()
     print(exp_value)
     return exp_value
+
+
+def reduce_medicine_qty(cust_id,batch_id,qty):
+    pass

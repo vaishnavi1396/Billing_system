@@ -1,8 +1,9 @@
 from flask import render_template, request, make_response,jsonify
 from flask import Flask
 import datetime
-from model import get_cust_id, med_query, add, get_med_info, get_med_det,add_model,add
+from model import get_cust_id, med_query, add, get_med_info, get_med_det,add_model,add,reduce_medicine_qty
 import json
+
 
 app = Flask(__name__)
 
@@ -31,7 +32,7 @@ def search():
     med_ids = med_query(medicine_name)
     if not med_ids is None:
         print(med_ids)
-        med_add = add(med_ids[0])
+        med_add = add(med_ids)
         #code for checking expiry_date
         return jsonify({"status":True})
     else:
@@ -77,9 +78,16 @@ def generate():
     generate_bill = request.data
     bill_data=json.loads(generate_bill)
     print(bill_data)
-    for obj in bill_data:
-        print(obj["batch_id"])
-    send_bill(bill_data)
+
+    cust_id = request.cookies.get("cust_id")
+    user_name=bill_data["username"]
+    phone_number=bill_data["phone"]
+    email=bill_data["email"]
+    med_list=bill_data["data"]
+    for med_item in med_list:
+        batch_id=med_item["batch_id"]
+        qty=med_item["qty"]
+        reduce_medicine_qty(cust_id,batch_id,qty)
     return jsonify(json.dumps({"status":"Success"}))
 
 if __name__ == "__main__":
