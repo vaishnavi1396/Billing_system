@@ -109,8 +109,8 @@ $(document).ready(function(){
         }
 
         tabel=$("#bill_table").DataTable()
-        if(tabel.count()==0){
-            alert("BILL INFO IS EMPTY"+tabel.count());
+        if(tabel.rows().count()==0){
+            alert("BILL INFO IS EMPTY" +tabel.count());
             return
         }
         else{

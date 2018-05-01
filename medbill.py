@@ -1,7 +1,7 @@
 from flask import render_template, request, make_response,jsonify
 from flask import Flask
 import datetime
-from model import get_cust_id, med_query, add, get_med_info, get_med_det,add_model,add,reduce_medicine_qty
+from model import get_cust_id, med_query, add, get_med_info, get_med_det,add_model,add, reduce_medicine_qty
 import json
 
 
@@ -55,7 +55,7 @@ def isExpired(exp_date):
 def add_medicine():
     medicine_name = request.args.get('medicine')
     cust_id = request.cookies.get("cust_id")
-    med_details,med_id = get_med_det(medicine_name, cust_id)
+    med_details, med_id = get_med_det(medicine_name, cust_id)
     final_med_data=[]
     for med_det in med_details:
         print(med_det[1])

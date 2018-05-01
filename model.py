@@ -73,13 +73,13 @@ def get_med_info(cust_id,med_id):
 
 
 def get_med_det(trade_name, cust_id):
-    cust_Id = cust_id
+    cust_ID = cust_id
     med_id = med_query(trade_name)
     print(med_id)
     if med_id is None:
         return None
     else:
-        med_det = get_med_info(cust_Id,med_id)
+        med_det = get_med_info(cust_ID,med_id)
     return med_det,med_id
 
 
@@ -92,6 +92,17 @@ def exp(expdate):
     return exp_value
 
 
+def update_qty(user_qty,cust_id):
+    mysql = med()
+    db = mysql.connect()
+    cursor = db.cursor()
+    print("""update med_acc set qty = qty - %s where cust_id='%s' """ % (user_qty,cust_id))
+    cursor.execute("""update med_acc set qty = qty - %s where cust_id='%s' """ % (user_qty,cust_id))
+    db.commit()
+    db.close()
 
-def reduce_medicine_qty(cust_id,batch_id,user_qty):
-    pass
+
+def reduce_medicine_qty(cust_id,batch_id,qty):
+    user_qty=qty
+    updated_qty_value = update_qty(user_qty,cust_id)
+    return updated_qty_value
