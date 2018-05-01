@@ -3,6 +3,10 @@
 width:60%;
 }
 
+
+.text-white{
+text-color:#ffff;
+}
 .search1
 {
 margin-top:25px;
@@ -29,12 +33,29 @@ width:10%;
 margin-top:10;
 }
 
-#layer1
-{
-border:solid black;
+
+
+
+.card{
+background-color:#385070;
 }
 
 .bill
 {
 width:10%;
+}
+
+
+table.dataTable {
+    color:#FFFFF;
+}
+.dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+    color: #fff;
+}
+
+
+table.dataTable tr.odd { background-color: #E2E4FF; }
+table.dataTable tr.even { background-color: white; }
+table thead tr th{
+    color:#ffff
 }

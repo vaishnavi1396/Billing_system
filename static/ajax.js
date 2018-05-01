@@ -2,6 +2,9 @@ var bill_info=[];
 
 
 $(document).ready(function(){
+
+         $('#bill_table').DataTable();
+
         $("#add").click(function(){
         var count=$("#count").text();
         count=parseInt(count)
@@ -20,9 +23,10 @@ $(document).ready(function(){
                     alert("Data: " + data + "\nStatus: " + status);
                     if(status.trim() == "success".trim())
                     {
-                    var markup = '<tr><td>'+(count).toString()+'</td><td>'+med_name+'</td><td>'+data.mfg_Date+' </td><td>'+data.exp_Date+' </td><td>'+data.cost+' </td><td><input type="number" min="0" max="100" value="0" size="2" style="width:50px" name="qty" id="qty'+count+'"/> </td><td class="txtCal" id=amount'+count+'> </td></tr>';
+                    console.log(data)
+                    var markup = '<tr id=medicin_item'+(count).toString()+'"><td style="display:None">'+data.batch_id+'</td><td>'+(count).toString()+'</td><td>'+med_name+'</td><td>'+data.mfg_Date+' </td><td>'+data.exp_Date+' </td><td>'+data.cost+' </td><td><input type="number" min="0" max="100" value="0" size="2" style="width:50px" name="qty" id="qty'+count+'"/> </td><td class="txtCal" id=amount'+count+'> </td></tr>';
                     $("#count").text(count.toString())
-                    $("#rows").append(markup);
+                    $("#bill_table").DataTable().row.add($(markup)[0]).draw();
 
                     $("#qty"+count).change(function(){
                     var value = $(this).val();
@@ -30,16 +34,7 @@ $(document).ready(function(){
                     amount= data.cost*value;
 //                    alert(amount);
                     $("#amount"+count).text(amount);
-                    var username = $("#uname").val();
-                    var phoneNo = $("#phoneNo").val();
-                    var email = $("#email").val();
-                    var entry=new Object();
-                    entry.user_name=username
-                    entry.user_phone=phoneNo
-                    entry.user_email=email
-                    entry.qty=value
-                    entry.batch_id=data.batch_id
-                    bill_info.push(entry);
+                    
                     });
                     }
                 });
@@ -61,30 +56,56 @@ $(document).ready(function(){
         var username = $("#uname").val();
         if(username == ""){
         alert("Enter the Username");
+        return
+
         }
 
         var phoneNo = $("#phoneNo").val();
         if(phoneNo == ""){
         alert("Enter the Phone Number");
+        return
         }
 
         var email = $("#email").val();
         if(email == ""){
         alert("Enter the User's email");
+        return
         }
 
-        if(bill_info.length==" ")
-            {
-            alert("BILL INFO IS EMPTY");
-            }
+        tabel=$("#bill_table").DataTable()
+        if(tabel.count()==0){
+            alert("BILL INFO IS EMPTY"+tabel.count());
+            return
+        }
+        else{
 
-            else{
-                var jsonArray = JSON.stringify(bill_info);
-                console.log(jsonArray)
+        var items=[]
+                data=tabel.rows().data()
+
+
+                for(i=0;i<tabel.rows().count();i++)
+                {
+                     batch_id=data[i][0]
+                     id=data[i][1]
+                     qty=$("#qty"+id).val()
+                     var item={"batch_id":batch_id,"qty":qty}
+                     items.push(item)
+                }
+
+                data={
+                "username":username,
+                "phone":phoneNo,
+                "email":email,
+                "data":items
+                }
+
+                data = JSON.stringify(data);
+
+                console.log(data)
                 $.ajax({
                     type:'POST',
                     url:"http://127.0.0.1:5000/generate",
-                    data:jsonArray,
+                    data:data,
                     dataType:"json",
                     contentType: "application/json; charset=UTF-8",
                     success:function(data,status){
@@ -97,8 +118,17 @@ $(document).ready(function(){
                             }
                         });
                     }
-
         });
+
+
+
+
+
+
+
+
+
+
 
         $("#search").click(function(){
         var value=$("#txtSearch").val()
