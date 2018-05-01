@@ -55,13 +55,13 @@ def isExpired(exp_date):
 def add_medicine():
     medicine_name = request.args.get('medicine')
     cust_id = request.cookies.get("cust_id")
-    med_details = get_med_det(medicine_name, cust_id)
+    med_details,med_id = get_med_det(medicine_name, cust_id)
     final_med_data=[]
     for med_det in med_details:
         print(med_det[1])
         if not isExpired(med_det[1]):
             print("Not expired")
-            obj=add_model(med_det[0],med_det[1],med_det[2],med_det[3],med_det[4])
+            obj=add_model(med_det[0],med_det[1],med_det[2],med_det[3],med_det[4],med_id)
             final_med_data.append(obj)
             print(final_med_data[0].__dict__)
 
@@ -69,24 +69,19 @@ def add_medicine():
     return jsonify(final_med_data[0].__dict__)
 
 
-def send_bill(bill_data):
-    pass
-
-
 @app.route("/generate", methods=['POST'])
 def generate():
     generate_bill = request.data
     bill_data=json.loads(generate_bill)
     print(bill_data)
-
     cust_id = request.cookies.get("cust_id")
-    user_name=bill_data["username"]
-    phone_number=bill_data["phone"]
-    email=bill_data["email"]
-    med_list=bill_data["data"]
+    user_name = bill_data["username"]
+    phone_number = bill_data["phone"]
+    email = bill_data["email"]
+    med_list = bill_data["data"]
     for med_item in med_list:
-        batch_id=med_item["batch_id"]
-        qty=med_item["qty"]
+        batch_id = med_item["batch_id"]
+        qty = med_item["qty"]
         reduce_medicine_qty(cust_id,batch_id,qty)
     return jsonify(json.dumps({"status":"Success"}))
 
