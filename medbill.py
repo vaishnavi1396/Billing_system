@@ -16,6 +16,12 @@ def bill(cust_name):
     return resp
 
 
+@app.route("/update/<cust_name>")
+def update_med(cust_name):
+    print(cust_name)
+    return render_template("update_med.html", Shop_name=cust_name)
+
+
 @app.route("/search")
 def search():
     medicine_name = request.args.get('medicine')
@@ -36,6 +42,7 @@ def isExpired(exp_date):
     currentday=datetime.date.today()
     print(currentday)
     print(currentday<exp_date)
+
     if exp_date < currentday:
         print("expired")
         return True
@@ -61,6 +68,10 @@ def add_medicine():
     return jsonify(final_med_data[0].__dict__)
 
 
+def send_bill(bill_data):
+    pass
+
+
 @app.route("/generate", methods=['POST'])
 def generate():
     generate_bill = request.data
@@ -68,6 +79,7 @@ def generate():
     print(bill_data)
     for obj in bill_data:
         print(obj["batch_id"])
+    send_bill(bill_data)
     return jsonify(json.dumps({"status":"Success"}))
 
 if __name__ == "__main__":

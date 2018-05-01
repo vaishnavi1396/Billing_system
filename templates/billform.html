@@ -4,17 +4,15 @@
     <link rel="stylesheet" type="text/css" href="http://127.0.0.1:5000/static/display.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://127.0.0.1:5000/static/ajax.js"></script>
-
 </head>
-<body>
-<div align="center">
+
+<body align="center">
 <div class="card" style="width:55rem;height:35rem;">
-    <div class="card-body" style="background-color:EEE8E8">
+    <div class="card-body" style="background-color:EEE8E8;">
         <h4 class="card-title">{{ shop_name }}</h4>
         <h6 class="card-subtitle mb-2 text-muted">supported by BRV4!!</h6>
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane active in" id="user_details">
-                <form name="udetails" onsubmit="return validateForm()">
                     <label>Username</label>
                     <input id="uname" type="text" name="username" class="input-xlarge" required/>
                     <label>Phone number </label>
@@ -22,16 +20,14 @@
                     <!--<input id="phoneNo" type="tel" name="phoneNo" class="input-xlarge" required>-->
                     <label>Email</label>
                     <input id="email" type="email" name="email" class="input-xlarge" required/>
-                </form>
             </div>
-        </div>
-        <div class="search1" align="center">
-            <input type="text" id="txtSearch" class="form-control input-sm length" maxlength="40" placeholder="Search..." />
-            <div style="margin-top:10px">
-                <button  class="btn btn-primary btn-sm search" id="search">Search</button>
-                <button  id="add" class="btn btn-primary btn-sm add">Add</button>
+            <div class="search1" align="center">
+                <input type="text" id="txtSearch" class="form-control input-sm length" maxlength="40" placeholder="Search..." />
+                <div style="margin-top:10px">
+                    <button  class="btn btn-primary btn-sm search" id="search">Search</button>
+                    <button  id="add" class="btn btn-primary btn-sm add">Add</button>
+                </div>
             </div>
-        </div>
 
         <div>
         <label align="right" id="count1">Count:<small id="count">0</small></label>
@@ -52,11 +48,11 @@
                 <td id="total" colspan="7">TOTAL</td>
             </tr>
         </table>
-    </div>
+        </div>
          <div style="margin-top:30px">
                 <button  type="submit" class="btn btn-primary btn-sm bill" id="bill">Bill</button>
          </div>
-  </div>
+    </div>
 </div>
 </div>
 </body>

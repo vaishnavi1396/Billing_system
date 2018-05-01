@@ -2,6 +2,35 @@ var bill_info=[];
 
 
 $(document).ready(function(){
+
+        $("#search").click(function(){
+        var value=$("#txtSearch").val()
+        alert("Getting the medicine name "+value);
+        if(value=="")
+        {
+            alert("Enter the medicine name");
+        }
+        else if(value == False)
+        {
+        alert("medicine doed not exist")
+        }
+
+        else{
+            $.get("http://127.0.0.1:5000/search?medicine=" +value, function(data, status){
+                        console.log(data)
+
+                        if(data.status==true){
+                            alert("medicine exist");
+                        }
+                        else{
+                            alert("medicine does not exist");
+
+                        }
+                });
+            }
+        });
+
+
         $("#add").click(function(){
         var count=$("#count").text();
         count=parseInt(count)
@@ -18,9 +47,11 @@ $(document).ready(function(){
         else{
             $.get("http://127.0.0.1:5000/add?medicine=" +med_name, function(data, status){
                     alert("Data: " + data + "\nStatus: " + status);
+
+
                     if(status.trim() == "success".trim())
                     {
-                    var markup = '<tr><td>'+(count).toString()+'</td><td>'+med_name+'</td><td>'+data.mfg_Date+' </td><td>'+data.exp_Date+' </td><td>'+data.cost+' </td><td><input type="number" min="0" max="100" value="0" size="2" style="width:50px" name="qty" id="qty'+count+'"/> </td><td class="txtCal" id=amount'+count+'> </td></tr>';
+                    var markup = '<tr><td>'+(count).toString()+'</td><td>'+med_name+'</td><td>'+convert(data.mfg_Date)+' </td><td>'+convert(data.exp_Date)+' </td><td>'+data.cost+' </td><td><input type="number" min="0" max="100" value="0" size="2" style="width:50px" name="qty" id="qty'+count+'"/> </td><td class="txtCal" id=amount'+count+'> </td></tr>';
                     $("#count").text(count.toString())
                     $("#rows").append(markup);
 
@@ -44,11 +75,12 @@ $(document).ready(function(){
                     }
                 });
             }
-        $("#cal_amount").on('amount', '.txtCal', function () {
+        $("#layer1").on('amount', function () {
        var calculated_total_sum = 0;
 
-       $("#amount").each(function () {
+       $("#amount .txtCal").each(function () {
            var get_textbox_value = $(this).val();
+           alert(get_textbox_value);
            if ($.isNumeric(get_textbox_value)) {
               calculated_total_sum += parseFloat(get_textbox_value);
               }
@@ -98,28 +130,6 @@ $(document).ready(function(){
                         });
                     }
 
-        });
-
-        $("#search").click(function(){
-        var value=$("#txtSearch").val()
-        alert("Getting the medicine name "+value);
-        if(value=="")
-        {
-            alert("Enter the medicine name");
-        }
-        else{
-            $.get("http://127.0.0.1:5000/search?medicine=" +value, function(data, status){
-                        console.log(data)
-
-                        if(data.status==true){
-                            alert("medicine exist");
-                        }
-                        else{
-                            alert("medicine does not exist");
-
-                        }
-                });
-            }
         });
 
 });

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="http://127.0.0.1:5000/static/med_update.css"/>
+</head>
+
+<body>
+    <div id="first">
+        <h1 align="center">{{ Shop_name }}</h1>
+
+        <label class="one">
+        <span>Medicine Name :</span>&nbsp;
+        <input class="name" name="mname" type="text"/>
+        </label>
+
+        <label class="two">
+        <span>Batch_Id :</span>&nbsp;
+        <input class="batch_id" name="batch_id" type="text"/>
+        </label>
+
+        <label class="three">
+        <span>Mfg_date :</span>&nbsp;
+        <input class="mfg" name="mfg" type="date"/>
+        </label>
+
+        <label class="four">
+        <span>Exp_date :</span>&nbsp;
+        <input class="Exp" name="Exp" type="date"/>
+        </label>
+
+        <label class="five">
+        <span>Cost per tablet :</span>&nbsp;
+        <input class="cost" name="cost" type="number"/>
+        </label>
+
+        <label class="six">
+        <span>Quantity :</span>&nbsp;
+        <input class="qty" name="qty" type="number"/>
+        </label>
+
+        <input class="submit" name="submit" type="submit" value="Update">
+    </div>
+</body>
+</html>

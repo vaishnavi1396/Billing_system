@@ -1,14 +1,17 @@
 from flaskext.mysql import MySQL
 from flask import Flask
 
+
 app = Flask(__name__)
+
+
 class add_model:
-    def __init__(self,mfg_date,exp_date,cost,qty,batch_id):
-        self.mfg_Date=mfg_date
-        self.exp_Date=exp_date
-        self.cost=cost
-        self.qty=qty
-        self.batch_id=batch_id
+    def __init__(self, mfg_date, exp_date, cost, qty, batch_id):
+        self.mfg_Date = mfg_date
+        self.exp_Date = exp_date
+        self.cost = cost
+        self.qty = qty
+        self.batch_id = batch_id
 
 
 def med():
@@ -68,7 +71,7 @@ def get_med_det(trade_name, cust_id):
     if data is None:
         return None
     else:
-        #for getting mfg date,exp date,cost and qty
+        # for getting mfg date,exp date,cost and qty
         print("""select det.mfg_date,det.exp_date,det.cost,ac.qty from med_acc as ac,med_list as det where ac.cust_id='%s' and ac.med_id='%s' and det.batch_id=ac.batch_id""" % (cust_id, data[0]))
         cursor.execute("""select det.mfg_date,det.exp_date,det.cost,ac.qty,det.batch_id from med_acc as ac,med_list as det where ac.cust_id='%s' and ac.med_id='%s' and det.batch_id=ac.batch_id""" % (cust_id, data[0]))
         data = cursor.fetchall()
@@ -80,6 +83,6 @@ def exp(expdate):
     mysql = med()
     cursor = mysql.connect().cursor()
     cursor.execute("""SELECT batch_id from med_list where exp_date ='%s' < CURDATE()""" % expdate)
-    exp_value=cursor.fetchone()
+    exp_value = cursor.fetchone()
     print(exp_value)
     return exp_value
