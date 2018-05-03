@@ -1,45 +1,61 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html>
 
 <head>
-<link rel="stylesheet" type="text/css" href="http://127.0.0.1:5000/static/med_update.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:5000/static/med_update.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <script type="text/javascript" src="http://127.0.0.1:5000/static/ajax2.js"></script>
 </head>
 
 <body>
     <div id="first">
-        <h1 align="center">{{ Shop_name }}</h1>
+        <form action="{{ url_for('med_update') }}" method="post">
+        <h1 align="center"><b>{{ Shop_name }}</b></h1>
 
         <label class="one">
         <span>Medicine Name :</span>&nbsp;
-        <input class="name" name="mname" type="text"/>
+        <input class="name" name="mname" type="text" size="20"/>
         </label>
 
         <label class="two">
-        <span>Batch_Id :</span>&nbsp;
-        <input class="batch_id" name="batch_id" type="text"/>
+        <span>Trade Name :</span>&nbsp;
+        <input class="name" name="tname" type="text" size="20"/>
         </label>
 
         <label class="three">
-        <span>Mfg_date :</span>&nbsp;
-        <input class="mfg" name="mfg" type="date"/>
+        <span>Batch_Id :</span>&nbsp;
+        <input class="batch_id" name="batch_id" type="text" size="20px"/>
         </label>
 
         <label class="four">
-        <span>Exp_date :</span>&nbsp;
-        <input class="Exp" name="Exp" type="date"/>
+        <span>Mfg_date :</span>&nbsp;
+        <input class="mfg" name="mfg" type="date" style="width:180px;"/>
         </label>
 
         <label class="five">
-        <span>Cost per tablet :</span>&nbsp;
-        <input class="cost" name="cost" type="number"/>
+        <span>Exp_date :</span>&nbsp;
+        <input class="Exp" name="exp" type="date" style="width:180px;"/>
         </label>
 
         <label class="six">
+        <span>Cost per tablet :</span>&nbsp;
+        <input class="cost" name="cost" type="number" size="20"/>
+        </label>
+
+        <label class="seven">
         <span>Quantity :</span>&nbsp;
-        <input class="qty" name="qty" type="number"/>
+        <input class="qty" name="qty" type="number" size="20"/>
+        </label>
+
+        <label class="eight">
+        <span>Description :</span>&nbsp;
+        <textarea class="msg" name="desc" style="width:250px;">
+        </textarea>
         </label>
 
         <input class="submit" name="submit" type="submit" value="Update">
+        </form>
     </div>
 </body>
 </html>
