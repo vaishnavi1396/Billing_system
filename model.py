@@ -18,7 +18,7 @@ class add_model:
 def med():
     mysql = MySQL()
     app.config['MYSQL_DATABASE_USER'] = 'root'
-    app.config['MYSQL_DATABASE_PASSWORD'] = 'vaishnavi'
+    app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
     app.config['MYSQL_DATABASE_DB'] = 'medicine'
     app.config['MYSQL_DATABASE_HOST'] = 'localhost'
     mysql.init_app(app)

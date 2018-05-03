@@ -19,8 +19,9 @@ def bill(cust_name):
 
 @app.route("/update/<cust_name>")
 def update_med(cust_name):
-    print(cust_name)
     return render_template("update_med.html", Shop_name=cust_name)
+
+
 
 
 @app.route("/search")

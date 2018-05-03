@@ -55,6 +55,9 @@ margin-left:30px;
 margin-top:20px;
 }
 
+.pull-right{
+    float:right;
+}
 .five{
 display:block;
 margin-left:-3px;
