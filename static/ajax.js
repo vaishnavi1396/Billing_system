@@ -6,7 +6,7 @@ $(document).ready(function(){
 
         $("#search").click(function(){
                 var value=$("#txtSearch").val()
-                alert("Getting the medicine name "+value);
+                //alert("Getting the medicine name "+value);
                 if(value=="")
                 {
                     alert("Enter the medicine name");
@@ -45,7 +45,7 @@ $(document).ready(function(){
         }
         else{
             $.get("http://127.0.0.1:5000/add?medicine=" +med_name, function(data, status){
-                    alert("Data: " + data + "\nStatus: " + status);
+                     alert("Data: " + data + "\nStatus: " + status);
                      function convert(str) {
                         var date = new Date(str),
                             month = ("0" + (date.getMonth()+1)).slice(-2),

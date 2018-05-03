@@ -29,7 +29,7 @@ def get_cust_id(cust_name):
     mysql = med()
     cursor = mysql.connect().cursor()
     query = """SELECT cust_id from users where uname='%s'""" % cust_name
-    print(query)
+    #print(query)
     cursor.execute(query)
     cust_id = cursor.fetchone()
     print(cust_id)
@@ -41,7 +41,8 @@ def med_query(medicine):
     cursor = mysql.connect().cursor()
     cursor.execute("SELECT med_id from med_det where trade_name=\'"+medicine+"\'")
     data = cursor.fetchone()
-    return data[0]
+    print(data)
+    return data
 
 
 def add(med_id):
@@ -60,6 +61,7 @@ def get_med_qty(cust_id, trade_name):
     data = cursor.fetchone()
     print(data)
     return data[0]
+
 
 # for getting mfg date,exp date,cost,qty and batch_id
 def get_med_info(cust_id,med_id):
@@ -92,7 +94,7 @@ def exp(expdate):
     return exp_value
 
 
-def update_qty(user_qty,cust_id):
+def remove_qty(user_qty,cust_id):
     mysql = med()
     db = mysql.connect()
     cursor = db.cursor()
@@ -102,7 +104,81 @@ def update_qty(user_qty,cust_id):
     db.close()
 
 
-def reduce_medicine_qty(cust_id,batch_id,qty):
-    user_qty=qty
-    updated_qty_value = update_qty(user_qty,cust_id)
-    return updated_qty_value
+def med_id_gen():
+    with open("med_id_generation.txt","r") as f:
+        last_med_id = f.readline()
+    print(last_med_id)
+    new_med_id = (abs(hash(last_med_id)))
+    with open("med_id_generation.txt","w") as f:
+        f.write(str(new_med_id))
+    print(new_med_id)
+    return str(new_med_id)
+
+
+def insert_query_drug(med_name, trade_name):
+    mysql = med()
+    db = mysql.connect()
+    cursor=db.cursor()
+    print("""insert into drug values(%s,%s)"""%((med_name,trade_name)))
+    cursor.execute("""insert into drug values('%s','%s')"""%(med_name,trade_name))
+    db.commit()
+    db.close()
+
+
+def insert_query_med_det(medicine_id, med_name, description, trade_name):
+    mysql = med()
+    db = mysql.connect()
+    cursor=db.cursor()
+    print("""insert into med_det values('%s','%s','%s','%s')"""%(medicine_id, med_name, description, trade_name))
+    cursor.execute("""insert into med_det values('%s','%s','%s','%s')"""%(medicine_id, med_name, description, trade_name))
+    db.commit()
+    db.close()
+
+
+def insert_query_med_acc(cust_id, med_id, batch_id, qty):
+    mysql = med()
+    db=mysql.connect()
+    cursor=db.cursor()
+    print("""insert into med_acc values('%s','%s','%s','%d')"""%(cust_id, med_id, batch_id, qty))
+    cursor.execute("""insert into med_acc values('%s','%s','%s','%d')"""%(cust_id, med_id, batch_id, qty))
+    db.commit()
+    db.close()
+
+
+def insert_query_med_list(batch_id, medicine_id, mfg_date, exp_date, cost):
+    mysql = med()
+    db = mysql.connect()
+    cursor=db.cursor()
+    print("""insert into med_list values('%s','%s','%s','%s','%s')"""  %(batch_id, medicine_id,mfg_date, exp_date, cost))
+    cursor.execute("""insert into med_list values('%s','%s','%s','%s','%s')""" % (batch_id, medicine_id, mfg_date, exp_date, cost))
+    db.commit()
+    db.close()
+
+
+def insert_medicine(med_name,trade_name, batch_id, mfg_date, exp_date, cost, quantity, description, cust_id):
+    insert_query_drug(med_name,trade_name)
+    medicine_id = med_id_gen()
+    insert_query_med_det(medicine_id, med_name, description, trade_name)
+    insert_query_med_list(batch_id, medicine_id, str(mfg_date), str(exp_date), cost)
+    insert_query_med_acc(cust_id, medicine_id, batch_id, int(quantity))
+
+
+def update_qty(qty,cust_id):
+    mysql = med()
+    db = mysql.connect()
+    cursor = db.cursor()
+    print("""update med_acc set qty = qty + %s where cust_id='%s' """ % (qty,cust_id))
+    cursor.execute("""update med_acc set qty = qty + %s where cust_id='%s' """ % (qty,cust_id))
+    db.commit()
+    db.close()
+
+
+def medicine_update(qty,cust_id):
+    mysql = med()
+    db = mysql.connect()
+    cursor = db.cursor()
+    print("""update med_acc set qty = qty + %s where cust_id='%s' """ % (qty, cust_id))
+    cursor.execute("""update med_acc set qty = qty + %s where cust_id='%s' """ % (qty, cust_id))
+    db.commit()
+    db.close()
+

@@ -1,7 +1,7 @@
 from flask import render_template, request, make_response,jsonify
 from flask import Flask
 import datetime
-from model import get_cust_id, med_query, add, get_med_info, get_med_det,add_model,add, reduce_medicine_qty
+from model import *
 import json
 
 
@@ -12,7 +12,7 @@ app = Flask(__name__)
 def bill(cust_name):
     print(cust_name)
     cust_id = get_cust_id(cust_name)
-    resp = make_response(render_template("billform.html", shop_name=cust_name))
+    resp = render_template("billform.html", shop_name=cust_name)
     resp.set_cookie("cust_id",cust_id)
     return resp
 
@@ -20,7 +20,10 @@ def bill(cust_name):
 @app.route("/update/<cust_name>")
 def update_med(cust_name):
     print(cust_name)
-    return render_template("update_med.html", Shop_name=cust_name)
+    cust_id = get_cust_id(cust_name)
+    result = make_response(render_template("update_med.html", Shop_name=cust_name))
+    result.set_cookie("cust_id", cust_id)
+    return result
 
 
 @app.route("/search")
@@ -42,8 +45,7 @@ def search():
 def isExpired(exp_date):
     currentday=datetime.date.today()
     print(currentday)
-    print(currentday<exp_date)
-
+    print(currentday < exp_date)
     if exp_date < currentday:
         print("expired")
         return True
@@ -69,6 +71,12 @@ def add_medicine():
     return jsonify(final_med_data[0].__dict__)
 
 
+def reduce_medicine_qty(cust_id,batch_id,qty):
+    user_qty=qty
+    updated_qty_value = remove_qty(user_qty,cust_id)
+    return updated_qty_value
+
+
 @app.route("/generate", methods=['POST'])
 def generate():
     generate_bill = request.data
@@ -85,6 +93,27 @@ def generate():
         reduce_medicine_qty(cust_id,batch_id,qty)
     return jsonify(json.dumps({"status":"Success"}))
 
+
+@app.route("/med_update", methods=['POST'])
+def med_update():
+    cust_id = request.cookies.get("cust_id")
+
+    med_name = request.form['mname']
+    trade_name = request.form['tname']
+    batch_id = request.form['batch_id']
+    mfg_date = request.form['mfg']
+    exp_date = request.form['exp']
+    cost = request.form['cost']
+    quantity = request.form['qty']
+    description = request.form['desc']
+    print(med_name,trade_name,batch_id,mfg_date,exp_date,cost, quantity, description,cust_id)
+    medicine_id = med_query(trade_name)
+    print(medicine_id)
+    if medicine_id is None:
+        insert_med = insert_medicine(med_name,trade_name,batch_id,mfg_date,exp_date,cost, quantity, description,cust_id)
+    else:
+        update_medicine = medicine_update(quantity, cust_id)
+
+
 if __name__ == "__main__":
     app.run(debug=False)
-    #get_med_det("crocin",100)
