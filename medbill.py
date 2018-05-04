@@ -12,7 +12,7 @@ app = Flask(__name__)
 def bill(cust_name):
     print(cust_name)
     cust_id = get_cust_id(cust_name)
-    resp = render_template("billform.html", shop_name=cust_name)
+    resp = make_response(render_template("billform.html", shop_name=cust_name))
     resp.set_cookie("cust_id",cust_id)
     return resp
 

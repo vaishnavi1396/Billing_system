@@ -56,17 +56,33 @@ $(document).ready(function(){
                     if(status.trim() == "success".trim())
                     {
                     console.log(data)
-                    var markup = '<tr id=medicin_item'+(count).toString()+'"><td style="display:None">'+data.batch_id+'</td><td style="display:None">'+data.med_id+'</td><td>'+(count).toString()+'</td><td>'+med_name+'</td><td>'+convert(data.mfg_Date)+' </td><td>'+convert(data.exp_Date)+' </td><td>'+data.cost+' </td><td><input type="number" min="0" max="100" value="0" size="2" style="width:50px" name="qty" id="qty'+count+'"/> </td><td class="txtCal" id=amount'+count+'> </td></tr>';
+                    var markup = '<tr id=medicin_item'+(count).toString()+'"><td style="display:None">'+data.batch_id+'</td><td style="display:None">'+data.med_id+'</td><td>'+(count).toString()+'</td><td>'+med_name+'</td><td>'+convert(data.mfg_Date)+' </td><td>'+convert(data.exp_Date)+' </td><td>'+data.cost+' </td><td><input type="number" min="0" max="100" value="0" size="2" style="width:50px" name="qty" id="qty'+count+'"/> </td><td class="txtCal" id=amount'+count+'>0</td></tr>';
                     $("#count").text(count.toString())
                     $("#bill_table").DataTable().row.add($(markup)[0]).draw();
 
                     $("#qty"+count).change(function(){
                     var value = $(this).val();
 //                    alert(value);
+                    if(data.qty<value){
+                        alert("quantity exceeded")
+                        return
+                    }
                     amount= data.cost*value;
 //                    alert(amount);
+
+                    curr_amt=$("#amount"+count).html()
+                    console.log(curr_amt)
+                    if (curr_amt == ""){
+                        curr_amt=0.0
+                        }
+                    else{
+                        curr_amt=parseFloat(curr_amt)
+                    }
+                    var total=parseFloat($("#total").html())-curr_amt
+                    console.log(total)
                     $("#amount"+count).text(amount);
-                    
+                    total=total+amount
+                    $("#total").text(" "+total)
                     });
                     }
                 });
