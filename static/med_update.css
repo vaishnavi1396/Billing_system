@@ -57,6 +57,9 @@ margin-top:20px;
 color:#000080;
 }
 
+.pull-right{
+    float:right;
+}
 .five{
 display:block;
 margin-left:49px;

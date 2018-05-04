@@ -26,6 +26,8 @@ def update_med(cust_name):
     return result
 
 
+
+
 @app.route("/search")
 def search():
     medicine_name = request.args.get('medicine')

@@ -18,7 +18,7 @@ class add_model:
 def med():
     mysql = MySQL()
     app.config['MYSQL_DATABASE_USER'] = 'root'
-    app.config['MYSQL_DATABASE_PASSWORD'] = 'vaishnavi'
+    app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
     app.config['MYSQL_DATABASE_DB'] = 'medicine'
     app.config['MYSQL_DATABASE_HOST'] = 'localhost'
     mysql.init_app(app)
@@ -85,8 +85,8 @@ def get_med_qty(cust_id, trade_name):
 def get_med_info(cust_id,med_id):
     mysql = med()
     cursor = mysql.connect().cursor()
-    print("""select det.mfg_date,det.exp_date,det.cost,ac.qty from med_acc as ac,med_list as det where ac.cust_id='%s' and ac.med_id='%s' and det.batch_id=ac.batch_id""" % (cust_id, med_id))
-    cursor.execute("""select det.mfg_date,det.exp_date,det.cost,ac.qty,det.batch_id from med_acc as ac,med_list as det where ac.cust_id='%s' and ac.med_id='%s' and det.batch_id=ac.batch_id""" % (cust_id, med_id))
+    print("""select det.mfg_date,det.exp_date,det.cost,ac.qty from med_acc as ac,med_list as det where ac.cust_id='%s' and ac.med_id='%s' and det.batch_id=ac.batch_id""" % (cust_id, med_id[0]))
+    cursor.execute("""select det.mfg_date,det.exp_date,det.cost,ac.qty,det.batch_id from med_acc as ac,med_list as det where ac.cust_id='%s' and ac.med_id='%s' and det.batch_id=ac.batch_id""" % (cust_id, med_id[0]))
     med_info = cursor.fetchall()
     print(med_info)
     return med_info

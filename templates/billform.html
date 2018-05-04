@@ -12,7 +12,9 @@
 <div align="center">
 <div class="card text-white mb-3" style="width:55rem;height:35rem;">
     <div class="card-body">
-        <h1 class="card-title">{{ shop_name }}</h1>
+        <h4 class="card-title">{{ shop_name }}</h4>
+        <h6 class="card-subtitle mb-2 text-muted">supported by BRV4!!</h6>
+        <a class="pull-right btn btn-info" href="/update/{{ shop_name }}"><u>update medicine</u></a>
 
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane active in" id="user_details">
@@ -49,7 +51,7 @@
 
             </tbody>
             <tr>
-                <td id="total" colspan="7">TOTAL</td>
+                <th colspan="7">TOTAL :<span id="total" >0</span></th>
             </tr>
         </table>
         </div>
