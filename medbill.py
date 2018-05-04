@@ -12,7 +12,7 @@ app = Flask(__name__)
 def bill(cust_name):
     print(cust_name)
     cust_id = get_cust_id(cust_name)
-    resp = render_template("billform.html", shop_name=cust_name)
+    resp = make_response(render_template("billform.html", shop_name=cust_name))
     resp.set_cookie("cust_id",cust_id)
     return resp
 
@@ -20,7 +20,7 @@ def bill(cust_name):
 @app.route("/update/<cust_name>")
 def update_med(cust_name):
     print(cust_name)
-    cust_id = get_cust_id(cust_name)
+    cust_id = get_customer_id(cust_name)
     result = make_response(render_template("update_med.html", Shop_name=cust_name))
     result.set_cookie("cust_id", cust_id)
     return result
@@ -36,7 +36,7 @@ def search():
     if not med_ids is None:
         print(med_ids)
         med_add = add(med_ids)
-        #code for checking expiry_date
+
         return jsonify({"status":True})
     else:
         return jsonify({"status":False})
@@ -97,7 +97,6 @@ def generate():
 @app.route("/med_update", methods=['POST'])
 def med_update():
     cust_id = request.cookies.get("cust_id")
-
     med_name = request.form['mname']
     trade_name = request.form['tname']
     batch_id = request.form['batch_id']
@@ -107,12 +106,17 @@ def med_update():
     quantity = request.form['qty']
     description = request.form['desc']
     print(med_name,trade_name,batch_id,mfg_date,exp_date,cost, quantity, description,cust_id)
-    medicine_id = med_query(trade_name)
+    medicine_id = medicine_query(trade_name)
     print(medicine_id)
     if medicine_id is None:
         insert_med = insert_medicine(med_name,trade_name,batch_id,mfg_date,exp_date,cost, quantity, description,cust_id)
     else:
         update_medicine = medicine_update(quantity, cust_id)
+    return "update successful"
+
+@app.route("/update_success", methods=['POST'])
+def update_success():
+    return render_template("update_success.html")
 
 
 if __name__ == "__main__":

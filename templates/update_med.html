@@ -10,9 +10,9 @@
 
 <body>
     <div id="first">
-        <form action="{{ url_for('med_update') }}" method="post">
-        <h1 align="center"><b>{{ Shop_name }}</b></h1>
 
+        <h1 align="center"><b>{{ Shop_name }}</b></h1>
+        <form action="{{ url_for('update_success') }}" method="post">
         <label class="one">
         <span>Medicine Name :</span>&nbsp;
         <input class="name" name="mname" type="text" size="20"/>

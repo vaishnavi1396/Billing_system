@@ -36,10 +36,28 @@ def get_cust_id(cust_name):
     return cust_id[0]
 
 
+def get_customer_id(cust_name):
+    mysql = med()
+    cursor = mysql.connect().cursor()
+    query = """SELECT cust_id from users where uname='%s'""" % cust_name
+    #print(query)
+    cursor.execute(query)
+    cust_id = cursor.fetchone()
+    print(cust_id)
+    return cust_id[0]
+
 def med_query(medicine):
     mysql = med()
     cursor = mysql.connect().cursor()
     cursor.execute("SELECT med_id from med_det where trade_name=\'"+medicine+"\'")
+    data = cursor.fetchone()
+    print(data)
+    return data[0]
+
+def medicine_query(medicine):
+    mysql = med()
+    cursor = mysql.connect().cursor()
+    cursor.execute("SELECT med_id from med_det where trade_name=\'" + medicine + "\'")
     data = cursor.fetchone()
     print(data)
     return data
@@ -163,22 +181,13 @@ def insert_medicine(med_name,trade_name, batch_id, mfg_date, exp_date, cost, qua
     insert_query_med_acc(cust_id, medicine_id, batch_id, int(quantity))
 
 
-def update_qty(qty,cust_id):
-    mysql = med()
-    db = mysql.connect()
-    cursor = db.cursor()
-    print("""update med_acc set qty = qty + %s where cust_id='%s' """ % (qty,cust_id))
-    cursor.execute("""update med_acc set qty = qty + %s where cust_id='%s' """ % (qty,cust_id))
-    db.commit()
-    db.close()
-
 
 def medicine_update(qty,cust_id):
     mysql = med()
     db = mysql.connect()
     cursor = db.cursor()
-    print("""update med_acc set qty = qty + %s where cust_id='%s' """ % (qty, cust_id))
-    cursor.execute("""update med_acc set qty = qty + %s where cust_id='%s' """ % (qty, cust_id))
+    print("""update med_acc set qty = qty + %s where cust_id = '%s' """ % (qty, cust_id))
+    cursor.execute("""update med_acc set qty = qty + %s where cust_id = '%s' """ % (qty, cust_id))
     db.commit()
     db.close()
 
