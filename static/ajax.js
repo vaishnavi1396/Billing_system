@@ -2,8 +2,6 @@ var bill_info=[];
 
 
 $(document).ready(function(){
-
-
         $("#search").click(function(){
                 var value=$("#txtSearch").val()
                 //alert("Getting the medicine name "+value);
@@ -14,19 +12,16 @@ $(document).ready(function(){
                 else{
                     $.get("http://127.0.0.1:5000/search?medicine=" +value, function(data, status){
                                 console.log(data)
-
+                                alert("Data: " + data + "\nStatus: " + status);
                                 if(data.status==true){
                                     alert("medicine exist");
                                 }
                                 else{
                                     alert("medicine does not exist");
-
                                 }
                         });
                     }
                 });
-
-
 
         $('#bill_table').DataTable();
 
@@ -35,7 +30,7 @@ $(document).ready(function(){
         count=parseInt(count)
         count=count+1
         var med_name=$("#txtSearch").val()
-        alert("adding medicine is" +med_name);
+        //alert("adding medicine is" +med_name);
         //alert(value)
 
         if(med_name=="")
@@ -45,7 +40,7 @@ $(document).ready(function(){
         }
         else{
             $.get("http://127.0.0.1:5000/add?medicine=" +med_name, function(data, status){
-                     alert("Data: " + data + "\nStatus: " + status);
+                     //alert("Data: " + data + "\nStatus: " + status);
                      function convert(str) {
                         var date = new Date(str),
                             month = ("0" + (date.getMonth()+1)).slice(-2),
