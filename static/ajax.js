@@ -12,7 +12,7 @@ $(document).ready(function(){
                 else{
                     $.get("http://127.0.0.1:5000/search?medicine=" +value, function(data, status){
                                 console.log(data)
-                                alert("Data: " + data + "\nStatus: " + status);
+                                //alert("Data: " + data + "\nStatus: " + status);
                                 if(data.status==true){
                                     alert("medicine exist");
                                 }
@@ -58,7 +58,7 @@ $(document).ready(function(){
                     $("#qty"+count).change(function(){
                     var value = $(this).val();
 //                    alert(value);
-                    if(data.qty<value){
+                    if(data.qty < value){
                         alert("quantity exceeded")
                         return
                     }
@@ -82,21 +82,6 @@ $(document).ready(function(){
                     }
                 });
             }
-//       $("#bill_table").on('amount', function () {
-//       var calculated_total_sum = 0;
-//
-//       $("#amount .txtCal").each(function () {
-//           var get_textbox_value = $(this).val();
-//           alert(get_textbox_value);
-//           if ($.isNumeric(get_textbox_value)) {
-//              calculated_total_sum += parseFloat(get_textbox_value);
-//              }
-//            });
-//              $("#total").html(calculated_total_sum);
-//       });
-
-
-
     });
 
     $("#bill").click(function(){
@@ -128,8 +113,6 @@ $(document).ready(function(){
 
         var items=[]
                 data=tabel.rows().data()
-
-
                 for(i=0;i<tabel.rows().count();i++)
                 {
                      batch_id=data[i][0]

@@ -18,7 +18,7 @@ class add_model:
 def med():
     mysql = MySQL()
     app.config['MYSQL_DATABASE_USER'] = 'root'
-    app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
+    app.config['MYSQL_DATABASE_PASSWORD'] = 'vaishnavi'
     app.config['MYSQL_DATABASE_DB'] = 'medicine'
     app.config['MYSQL_DATABASE_HOST'] = 'localhost'
     mysql.init_app(app)
@@ -62,6 +62,13 @@ def medicine_query(medicine):
     print(data)
     return data
 
+def medicine_id_search(cust_id,medicine):
+    mysql = med()
+    cursor = mysql.connect().cursor()
+    cursor.execute("""Select ma.med_id from med_acc as ma where cust_id='%s' and ma.med_id = (SELECT med_id from med_det where trade_name='%s' """%(cust_id,medicine))
+    data = cursor.fetchone()
+    print(data)
+    return data[0]
 
 def add(med_id):
     mysql = med()
@@ -85,8 +92,8 @@ def get_med_qty(cust_id, trade_name):
 def get_med_info(cust_id,med_id):
     mysql = med()
     cursor = mysql.connect().cursor()
-    print("""select det.mfg_date,det.exp_date,det.cost,ac.qty from med_acc as ac,med_list as det where ac.cust_id='%s' and ac.med_id='%s' and det.batch_id=ac.batch_id""" % (cust_id, med_id[0]))
-    cursor.execute("""select det.mfg_date,det.exp_date,det.cost,ac.qty,det.batch_id from med_acc as ac,med_list as det where ac.cust_id='%s' and ac.med_id='%s' and det.batch_id=ac.batch_id""" % (cust_id, med_id[0]))
+    print("""select det.mfg_date,det.exp_date,det.cost,ac.qty from med_acc as ac,med_list as det where ac.cust_id='%s' and ac.med_id='%s' and det.batch_id=ac.batch_id""" % (cust_id, med_id))
+    cursor.execute("""select det.mfg_date,det.exp_date,det.cost,ac.qty,det.batch_id from med_acc as ac,med_list as det where ac.cust_id='%s' and ac.med_id='%s' and det.batch_id=ac.batch_id""" % (cust_id, med_id))
     med_info = cursor.fetchall()
     print(med_info)
     return med_info
@@ -112,12 +119,12 @@ def exp(expdate):
     return exp_value
 
 
-def remove_qty(user_qty,cust_id):
+def remove_qty(user_qty,batch_id):
     mysql = med()
     db = mysql.connect()
     cursor = db.cursor()
-    print("""update med_acc set qty = qty - %s where cust_id='%s' """ % (user_qty,cust_id))
-    cursor.execute("""update med_acc set qty = qty - %s where cust_id='%s' """ % (user_qty,cust_id))
+    print("""update med_acc set qty = qty - %s where batch_id='%s' """ % (user_qty,batch_id))
+    cursor.execute("""update med_acc set qty = qty - %s where batch_id='%s' """ % (user_qty,batch_id))
     db.commit()
     db.close()
 
@@ -182,12 +189,12 @@ def insert_medicine(med_name,trade_name, batch_id, mfg_date, exp_date, cost, qua
 
 
 
-def medicine_update(qty,cust_id):
+def medicine_update(qty,medicine_id):
     mysql = med()
     db = mysql.connect()
     cursor = db.cursor()
-    print("""update med_acc set qty = qty + %s where cust_id = '%s' """ % (qty, cust_id))
-    cursor.execute("""update med_acc set qty = qty + %s where cust_id = '%s' """ % (qty, cust_id))
+    print("""update med_acc set qty = qty + '%s' where med_id = '%s' """ % (qty, medicine_id))
+    cursor.execute("""update med_acc set qty = qty + '%s' where med_id = '%s' """ % (qty, medicine_id))
     db.commit()
     db.close()
 

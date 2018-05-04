@@ -2,13 +2,17 @@
 {
 width:60%;
 }
-h1{
+
+h1
+{
 border-bottom:2px solid white;
 }
 
-.text-white{
+.text-white
+{
 text-color:#ffff;
 }
+
 .search1
 {
 margin-top:25px;
@@ -44,7 +48,6 @@ background-color:#385070;
 width:10%;
 }
 
-
 table.dataTable {
     color:#FFFFF;
 }
@@ -52,10 +55,8 @@ table.dataTable {
     color: #fff;
 }
 
-
 table.dataTable tr.odd { background-color: #E2E4FF; }
 table.dataTable tr.even { background-color: white; }
 table thead tr th{
     color:#ffff
 }
-

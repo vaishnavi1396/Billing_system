@@ -26,12 +26,10 @@ def update_med(cust_name):
     return result
 
 
-
-
 @app.route("/search")
 def search():
     medicine_name = request.args.get('medicine')
-    #cust_id = request.cookies.get("cust_id")
+    cust_id = request.cookies.get("cust_id")
     print(medicine_name)
     #print(cust_id)
     med_ids = med_query(medicine_name)
@@ -66,6 +64,7 @@ def add_medicine():
         if not isExpired(med_det[1]):
             print("Not expired")
             obj=add_model(med_det[0],med_det[1],med_det[2],med_det[3],med_det[4],med_id)
+
             final_med_data.append(obj)
             print(final_med_data[0].__dict__)
 
@@ -75,7 +74,7 @@ def add_medicine():
 
 def reduce_medicine_qty(cust_id,batch_id,qty):
     user_qty=qty
-    updated_qty_value = remove_qty(user_qty,cust_id)
+    updated_qty_value = remove_qty(user_qty,batch_id)
     return updated_qty_value
 
 
@@ -112,12 +111,9 @@ def med_update():
     print(medicine_id)
     if medicine_id is None:
         insert_med = insert_medicine(med_name,trade_name,batch_id,mfg_date,exp_date,cost, quantity, description,cust_id)
-    else:
-        update_medicine = medicine_update(quantity, cust_id)
-    return "update successful"
-
-@app.route("/update_success", methods=['POST'])
-def update_success():
+    medi_id = med_query(trade_name)
+    if not medi_id is None:
+        update_medicine = medicine_update(quantity, medi_id)
     return render_template("update_success.html")
 
 
