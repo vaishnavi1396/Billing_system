@@ -2,6 +2,7 @@ var bill_info=[];
 
 
 $(document).ready(function(){
+
         $("#search").click(function(){
                 var value=$("#txtSearch").val()
                 //alert("Getting the medicine name "+value);
@@ -11,7 +12,7 @@ $(document).ready(function(){
                 }
                 else{
                     $.get("http://127.0.0.1:5000/search?medicine=" +value, function(data, status){
-                                console.log(data)
+                                console.log(data);
                                 //alert("Data: " + data + "\nStatus: " + status);
                                 if(data.status==true){
                                     alert("medicine exist");
@@ -51,7 +52,7 @@ $(document).ready(function(){
                     if(status.trim() == "success".trim())
                     {
                     console.log(data)
-                    var markup = '<tr id=medicin_item'+(count).toString()+'"><td style="display:None">'+data.batch_id+'</td><td style="display:None">'+data.med_id+'</td><td>'+(count).toString()+'</td><td>'+med_name+'</td><td>'+convert(data.mfg_Date)+' </td><td>'+convert(data.exp_Date)+' </td><td>'+data.cost+' </td><td><input type="number" min="0" max="100" value="0" size="2" style="width:50px" name="qty" id="qty'+count+'"/> </td><td class="txtCal" id=amount'+count+'>0</td></tr>';
+                    var markup = '<tr id=medicin_item'+(count).toString()+'"><td style="display:None">'+data.batch_id+'</td><td style="display:None">'+data.med_id+'</td><td>'+(count).toString()+'</td><td>'+med_name+'</td><td>'+convert(data.mfg_Date)+'</td><td>'+convert(data.exp_Date)+' </td><td>'+data.cost+'</td>\<td><input type="number" min="0" max="100" value="0" size="2" style="width:50px" name="qty" id="qty'+count+'"/></td><td class="txtCal" id=amount'+count+'>0</td></tr>';
                     $("#count").text(count.toString())
                     $("#bill_table").DataTable().row.add($(markup)[0]).draw();
 
@@ -65,18 +66,18 @@ $(document).ready(function(){
                     amount= data.cost*value;
 //                    alert(amount);
 
-                    curr_amt=$("#amount"+count).html()
+                    curr_amt=$("#amount"+count).html();
                     console.log(curr_amt)
                     if (curr_amt == ""){
                         curr_amt=0.0
                         }
                     else{
-                        curr_amt=parseFloat(curr_amt)
+                        curr_amt=parseFloat(curr_amt);
                     }
                     var total=parseFloat($("#total").html())-curr_amt
-                    console.log(total)
+                    console.log(total);
                     $("#amount"+count).text(amount);
-                    total=total+amount
+                    total = total + amount;
                     $("#total").text(" "+total)
                     });
                     }
@@ -89,7 +90,6 @@ $(document).ready(function(){
         if(username == ""){
         alert("Enter the Username");
         return
-
         }
 
         var phoneNo = $("#phoneNo").val();
@@ -104,23 +104,22 @@ $(document).ready(function(){
         return
         }
 
-        tabel=$("#bill_table").DataTable()
-        if(tabel.rows().count()==0){
-            alert("BILL INFO IS EMPTY" +tabel.count());
+        table=$("#bill_table").DataTable();
+        if(table.rows().count()==0){
+            alert("BILL INFO IS EMPTY" +table.count());
             return
         }
         else{
-
         var items=[]
-                data=tabel.rows().data()
-                for(i=0;i<tabel.rows().count();i++)
+                data=table.rows().data();
+                for(i=0;i<table.rows().count();i++)
                 {
                      batch_id=data[i][0]
                      med_id=data[i][1]
                      id=data[i][2]
-                     qty=$("#qty"+id).val()
+                     qty=$("#qty"+id).val();
                      var item={"batch_id":batch_id,"qty":qty,"med_id":med_id}
-                     items.push(item)
+                     items.push(item);
                 }
 
                 data={
@@ -132,7 +131,7 @@ $(document).ready(function(){
 
                 data = JSON.stringify(data);
 
-                console.log(data)
+                console.log(data);
                 $.ajax({
                     type:'POST',
                     url:"http://127.0.0.1:5000/generate",

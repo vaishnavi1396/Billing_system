@@ -46,6 +46,7 @@ def get_customer_id(cust_name):
     print(cust_id)
     return cust_id[0]
 
+
 def med_query(medicine):
     mysql = med()
     cursor = mysql.connect().cursor()
@@ -53,6 +54,7 @@ def med_query(medicine):
     data = cursor.fetchone()
     print(data)
     return data[0]
+
 
 def medicine_query(medicine):
     mysql = med()
@@ -62,13 +64,15 @@ def medicine_query(medicine):
     print(data)
     return data
 
+
 def medicine_id_search(cust_id,medicine):
     mysql = med()
     cursor = mysql.connect().cursor()
-    cursor.execute("""Select ma.med_id from med_acc as ma where cust_id='%s' and ma.med_id = (SELECT med_id from med_det where trade_name='%s' """%(cust_id,medicine))
+    cursor.execute("""Select ma.med_id from med_acc as ma where cust_id='%s' and ma.med_id = (SELECT med_id from med_det where trade_name='%s')"""%(cust_id,medicine))
     data = cursor.fetchone()
     print(data)
-    return data[0]
+    return data
+
 
 def add(med_id):
     mysql = med()
@@ -186,7 +190,6 @@ def insert_medicine(med_name,trade_name, batch_id, mfg_date, exp_date, cost, qua
     insert_query_med_det(medicine_id, med_name, description, trade_name)
     insert_query_med_list(batch_id, medicine_id, str(mfg_date), str(exp_date), cost)
     insert_query_med_acc(cust_id, medicine_id, batch_id, int(quantity))
-
 
 
 def medicine_update(qty,medicine_id):
