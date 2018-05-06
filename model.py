@@ -70,7 +70,7 @@ def medicine_id_search(cust_id,medicine):
     cursor = mysql.connect().cursor()
     cursor.execute("""Select ma.med_id from med_acc as ma where cust_id='%s' and ma.med_id = (SELECT med_id from med_det where trade_name='%s')"""%(cust_id,medicine))
     data = cursor.fetchone()
-    print(data)
+    #print(data)
     return data
 
 

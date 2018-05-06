@@ -34,11 +34,11 @@ def search():
     # print(cust_id)
     med_ids = medicine_id_search(cust_id, medicine_name)
     if not med_ids is None:
-        print(med_ids)
+        #print(med_ids)
         # med_add = add(med_ids)
-        return jsonify({"status ": True})
+        return jsonify({"status":True})
     else:
-        return jsonify({"status ": False})
+        return jsonify({"status":False})
 
 
 def isExpired(exp_date):

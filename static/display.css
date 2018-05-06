@@ -8,6 +8,11 @@ h1
 border-bottom:2px solid white;
 }
 
+h1.shop_name
+{
+font-size:3em;
+}
+
 .text-white
 {
 text-color:#ffff;
@@ -51,6 +56,7 @@ width:10%;
 table.dataTable {
     color:#FFFFF;
 }
+
 .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
     color: #fff;
 }
