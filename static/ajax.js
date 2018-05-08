@@ -11,7 +11,7 @@ $(document).ready(function(){
                     alert("Enter the medicine name");
                 }
                 else{
-                    $.get("http://127.0.0.1:5000/search?medicine=" +value, function(data, status){
+                    $.get("/search?medicine=" +value, function(data, status){
                                 console.log(data);
 
                                 if(data.status == true){
@@ -40,7 +40,7 @@ $(document).ready(function(){
         }
 
         else{
-            $.get("http://127.0.0.1:5000/add?medicine=" +med_name, function(data, status){
+            $.get("/add?medicine=" +med_name, function(data, status){
                      function convert(str) {
                         var date = new Date(str),
                             month = ("0" + (date.getMonth()+1)).slice(-2),
@@ -134,7 +134,7 @@ $(document).ready(function(){
                 console.log(data);
                 $.ajax({
                     type:'POST',
-                    url:"http://127.0.0.1:5000/generate",
+                    url:"/generate",
                     data:data,
                     dataType:"json",
                     contentType: "application/json; charset=UTF-8",

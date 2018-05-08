@@ -5,6 +5,8 @@ from flask import Flask
 app = Flask(__name__)
 
 
+
+
 class add_model:
     def __init__(self, mfg_date, exp_date, cost, qty, batch_id,med_id):
         self.mfg_Date = mfg_date
@@ -15,12 +17,25 @@ class add_model:
         self.med_id=med_id
 
 
+
+def get_shop_name(cust_id):
+    mysql = med()
+    cursor = mysql.connect().cursor()
+    query = """SELECT  uname from users where cust_id='%s'""" % cust_id
+    print(query)
+    cursor.execute(query)
+    cust_name = cursor.fetchone()
+    print(cust_name)
+    return cust_name[0]
+
+
 def med():
     mysql = MySQL()
     app.config['MYSQL_DATABASE_USER'] = 'root'
-    app.config['MYSQL_DATABASE_PASSWORD'] = 'vaishnavi'
+    app.config['MYSQL_DATABASE_PASSWORD'] = '1ks14cs119'
     app.config['MYSQL_DATABASE_DB'] = 'medicine'
-    app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+    app.config['MYSQL_DATABASE_HOST'] = 'medicine.c9llzcxnfscl.us-east-1.rds.amazonaws.com'
+
     mysql.init_app(app)
     return mysql
 
@@ -191,6 +206,40 @@ def insert_medicine(med_name,trade_name, batch_id, mfg_date, exp_date, cost, qua
     insert_query_med_list(batch_id, medicine_id, str(mfg_date), str(exp_date), cost)
     insert_query_med_acc(cust_id, medicine_id, batch_id, int(quantity))
 
+def search_by_phone(phone_number):
+    mysql = med()
+    db = mysql.connect()
+    cursor = db.cursor()
+    cursor.execute("""SELECT cust_id from users where phoneno = '%s'"""%(phone_number))
+    print("""SELECT cust_id from users where phoneno = '%s'"""%(phone_number))
+    row = cursor.fetchone()
+    db.close()
+    print(row)
+    if row is not None:
+        return row[0]
+    else:
+        return False
+
+
+def get_drug_trade(med_id):
+    mysql = med()
+    db = mysql.connect()
+    cursor = db.cursor()
+    cursor.execute("""SELECT drug_name,trade_name from med_det where med_id='%s'"""%(med_id))
+    data = cursor.fetchone()
+    db.close()
+    print(data[0])
+    return data
+
+def get_med_data(batch_id,med_id):
+    mysql = med()
+    db = mysql.connect()
+    cursor = db.cursor()
+    cursor.execute("""SELECT mfg_date,exp_date,cost from med_list where batch_id='%s' and med_id='%s'"""%(batch_id,med_id))
+    data=cursor.fetchone()
+    print(data)
+    db.close()
+    return data
 
 def medicine_update(qty,medicine_id):
     mysql = med()
