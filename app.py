@@ -3,6 +3,11 @@ from flask import Flask
 import datetime
 from model import *
 import json
+import smtplib
+import requests
+
+from uitemplates import text_template_class
+token = "EAACGHzJZBmDABAOlZAEPVM2ikVWHx8hlMzmTZCO6l3s3kWMjQo5oywc0H8NK3IfMehFoEIHRS4W0w6REcfKWzxy7P9qAayTZBeVVZCpcU7KdSbC4rhiZBYMMryYLZCf0QEmEJSBqNSEZBJy7fEQmT7MQdoWYqTLEZBJOxKgkrioYhqv1AYTORC8Uu"
 
 
 app = Flask(__name__)
@@ -52,6 +57,9 @@ def isExpired(exp_date):
         return False
 
 
+
+
+
 @app.route("/add")
 def add_medicine():
     medicine_name = request.args.get('medicine')
@@ -75,6 +83,74 @@ def reduce_medicine_qty(cust_id,batch_id,qty):
     return updated_qty_value
 
 
+
+def reply(data):
+    json_data = json.dumps(data)
+    print("What is this json data")
+    print(json_data)
+    req = requests.post("https://graph.facebook.com/v2.6/me/messages",params={"access_token": token}, \
+                        headers={"Content-Type": "application/json"},data=json_data)
+    print(req.content)
+
+
+
+def send_bill_information(cust_id,mydict,**kwargs):
+    # mydict={'username': 'vivek', 'phone': '8088432316', 'email': 'vivekstarstar', 'data': [{'batch_id': 'p302', 'qty': '1', 'med_id': '202'}, {'batch_id': 'p302', 'qty': '1', 'med_id': '202'}]}
+
+    phone_number = mydict['phone']
+    shop_name=get_shop_name(cust_id)
+
+    recipient_id = search_by_phone(phone_number)
+
+    text="Hey thanks for billing at "+shop_name+"! Following is your bill information \n"
+    display_bill = []
+    total_cost=0
+    for medicine in mydict['data']:
+        batch_id=medicine['batch_id']
+        med_id=medicine['med_id']
+        (mfg,exp,cost) = get_med_data(batch_id,med_id)
+        drug,trade=get_drug_trade(med_id)
+        qty=medicine["qty"]
+        tcost=int(qty)*int(cost)
+        temp="tablate:"+trade+",qty:"+qty+",cost:"+str(tcost)+",exp:"+str(exp)+"\n"
+        total_cost+=tcost
+        text+=temp
+    text+="total cost:"+str(total_cost)+"\n"
+    print(text)
+    if not recipient_id is None:
+        data = text_template_class(recipient_id,text,subscription_message=True).__dict__
+        print(data)
+        reply(data)
+    else:
+        # Todo:send mail to this new user
+        gmail_user = ''
+        gmail_password = ''
+        #TODO: how to get email of this customer
+        customer_email = mydict['email']
+        sent_from = gmail_user
+        to = [customer_email]
+        subject = 'Medicine Bot to share medicines!'
+        body = "Dear Customer,\nIf you would like to share the extra medicines bought by you now, kindly like our" \
+               "facebook page, In Zone drug remedy\n" \
+               "Thanks!"
+
+        email_text = """\  
+        %s
+        """ % (sent_from, ", ".join(to), subject, body)
+        message = 'Subject: {}\n\n{}'.format(subject, email_text)
+
+        try:
+            server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+            server.ehlo()
+            server.login(gmail_user, gmail_password)
+            server.sendmail(sent_from, to, message)
+            server.close()
+
+            print('Email sent!')
+        except:
+            print('Something went wrong...')
+
+
 @app.route("/generate", methods=['POST'])
 def generate():
     generate_bill = request.data
@@ -89,6 +165,7 @@ def generate():
         batch_id = med_item["batch_id"]
         qty = med_item["qty"]
         reduce_medicine_qty(cust_id, batch_id,qty)
+    send_bill_information(cust_id,bill_data)
     return jsonify(json.dumps({"status ": "Success"}))
 
 
@@ -115,4 +192,4 @@ def med_update():
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(host="0.0.0.0",debug=False)
